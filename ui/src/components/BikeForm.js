@@ -11,41 +11,45 @@ const validationSchema = Yup.object().shape({
   models: Yup.array().of(
     Yup.object().shape({
       Name: Yup.string().required('Model name is required'),
-      "Ex-Showroom price": Yup.string().required('Ex-Showroom price is required'),
+      'Ex-Showroom price': Yup.string().required(
+        'Ex-Showroom price is required'
+      ),
       RTO: Yup.string().required('RTO is required'),
       Insurance: Yup.string().required('Insurance is required'),
       HPA: Yup.string().required('HPA is required'),
       Others: Yup.string().required('Others is required'),
       PDI: Yup.string().required('PDI is required'),
       Total: Yup.string().required('Total is required'),
-      Image: Yup.string().url('Image must be a valid URL')
+      Image: Yup.string().url('Image must be a valid URL'),
     })
-  )
+  ),
 });
 
-function BikeForm({initialValues = {
-  name: '',
-  models: [
-    {
-      "Name": '',
-      "Ex-Showroom price": '',
-      "RTO": '',
-      "Insurance": '',
-      "HPA": '',
-      "Others": '',
-      "Accessories": [],
-      "PDI": '',
-      "Total": '',
-      "Image": ''
-    }
-  ]
-}, onSubmit}) {
-
+function BikeForm({
+  initialValues = {
+    name: '',
+    models: [
+      {
+        Name: '',
+        'Ex-Showroom price': '',
+        RTO: '',
+        Insurance: '',
+        HPA: '',
+        Others: '',
+        Accessories: [],
+        PDI: '',
+        Total: '',
+        Image: '',
+      },
+    ],
+  },
+  onSubmit,
+}) {
   const handleSubmit = async (values) => {
     console.log('Bike Details:', values);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/bikes/register', values, {
+      const response = await axios.post('/api/bikes/register', values, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -53,7 +57,7 @@ function BikeForm({initialValues = {
 
       console.log('Bike added successfully:', response.data);
       alert('Bike added successfully!');
-      onSubmit(values)
+      onSubmit(values);
     } catch (error) {
       console.error('Error adding bike:', error);
       alert('Failed to add bike. Please try again.');
@@ -75,9 +79,13 @@ function BikeForm({initialValues = {
                 name="name"
                 type="text"
                 placeholder="Enter bike name"
-                className={`form-control ${touched.name && errors.name ? 'is-invalid' : ''}`}
+                className={`form-control ${
+                  touched.name && errors.name ? 'is-invalid' : ''
+                }`}
               />
-              {touched.name && errors.name && <div className="invalid-feedback">{errors.name}</div>}
+              {touched.name && errors.name && (
+                <div className="invalid-feedback">{errors.name}</div>
+              )}
             </Form.Group>
 
             <FieldArray name="models">
@@ -86,46 +94,54 @@ function BikeForm({initialValues = {
                   {values.models.map((model, index) => (
                     <div key={index} className="mt-4">
                       <h5>Model {index + 1}</h5>
-                      {Object.keys(model).map((field) => (
-                        field !== "Accessories" && (
-                          <Form.Group key={field} controlId={`${field}-${index}`}>
-                            <Form.Label>{field}</Form.Label>
-                            <Field
-                              name={`models[${index}]['${field}']`}
-                              type="text"
-                              placeholder={`Enter ${field}`}
-                              className={`form-control ${
-                                touched.models?.[index]?.[field] && errors.models?.[index]?.[field]
-                                  ? 'is-invalid'
-                                  : ''
-                              }`}
-                            />
-                            {touched.models?.[index]?.[field] && errors.models?.[index]?.[field] && (
-                              <div className="invalid-feedback">
-                                {errors.models[index][field]}
-                              </div>
-                            )}
-                          </Form.Group>
-                        )
-                      ))}
+                      {Object.keys(model).map(
+                        (field) =>
+                          field !== 'Accessories' && (
+                            <Form.Group
+                              key={field}
+                              controlId={`${field}-${index}`}
+                            >
+                              <Form.Label>{field}</Form.Label>
+                              <Field
+                                name={`models[${index}]['${field}']`}
+                                type="text"
+                                placeholder={`Enter ${field}`}
+                                className={`form-control ${
+                                  touched.models?.[index]?.[field] &&
+                                  errors.models?.[index]?.[field]
+                                    ? 'is-invalid'
+                                    : ''
+                                }`}
+                              />
+                              {touched.models?.[index]?.[field] &&
+                                errors.models?.[index]?.[field] && (
+                                  <div className="invalid-feedback">
+                                    {errors.models[index][field]}
+                                  </div>
+                                )}
+                            </Form.Group>
+                          )
+                      )}
                     </div>
                   ))}
 
                   <Button
-                    disabled={!Object.keys(touched).length || Object.keys(errors).length}
+                    disabled={
+                      !Object.keys(touched).length || Object.keys(errors).length
+                    }
                     variant="secondary"
                     onClick={() =>
                       push({
-                        "Name": '',
-                        "Ex-Showroom price": '',
-                        "RTO": '',
-                        "Insurance": '',
-                        "HPA": '',
-                        "Others": '',
-                        "Accessories": [],
-                        "PDI": '',
-                        "Total": '',
-                        "Image": ''
+                        Name: '',
+                        'Ex-Showroom price': '',
+                        RTO: '',
+                        Insurance: '',
+                        HPA: '',
+                        Others: '',
+                        Accessories: [],
+                        PDI: '',
+                        Total: '',
+                        Image: '',
                       })
                     }
                     className="mt-3"
@@ -136,7 +152,14 @@ function BikeForm({initialValues = {
               )}
             </FieldArray>
 
-            <Button disabled={!Object.keys(touched).length || Object.keys(errors).length} variant="primary" type="submit" className="mt-3 ml-2 ms-2">
+            <Button
+              disabled={
+                !Object.keys(touched).length || Object.keys(errors).length
+              }
+              variant="primary"
+              type="submit"
+              className="mt-3 ml-2 ms-2"
+            >
               Submit
             </Button>
           </FormikForm>
