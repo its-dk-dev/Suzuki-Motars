@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import React from 'react';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
 import BikesData from './components/BikesData';
 import Invoice from './components/Invoice';
@@ -9,21 +9,23 @@ import useBikes from './hooks/useBikes';
 function App() {
   const { bikes, setBikes } = useBikes();
 
-  console.log('bikes', bikes);
-
   return (
-    <div className="App">
-      <Navigation />
-      <Router>
+    <BrowserRouter>
+      <div className="App">
+        <Navigation />
         <Routes>
+          <Route
+            path="/"
+            element={<BikesData bikes={bikes} setBikesData={setBikes} />}
+          />
           <Route path="/invoices" element={<Invoice bikesData={bikes} />} />
           <Route
             path="/bikes"
             element={<BikesData bikes={bikes} setBikesData={setBikes} />}
           />
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
