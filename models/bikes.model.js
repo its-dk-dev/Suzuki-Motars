@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 
 const ModelSchema = new Schema(
   {
-    Name: { type: String, required: true },
+    'Model Name': { type: String, required: true },
     'Ex-Showroom price': { type: Number, required: true },
     RTO: { type: Number, required: true },
     Insurance: { type: Number, required: true },

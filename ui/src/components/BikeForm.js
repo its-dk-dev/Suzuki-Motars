@@ -10,7 +10,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('Bike name is required'),
   models: Yup.array().of(
     Yup.object().shape({
-      Name: Yup.string().required('Model name is required'),
+      'Model Name': Yup.string().required('Model name is required'),
       'Ex-Showroom price': Yup.string().required(
         'Ex-Showroom price is required'
       ),
@@ -30,7 +30,7 @@ function BikeForm({
     name: '',
     models: [
       {
-        Name: '',
+        'Model Name': '',
         'Ex-Showroom price': '',
         RTO: '',
         Insurance: '',
@@ -132,7 +132,7 @@ function BikeForm({
                     variant="secondary"
                     onClick={() =>
                       push({
-                        Name: '',
+                        'Model Name': '',
                         'Ex-Showroom price': '',
                         RTO: '',
                         Insurance: '',

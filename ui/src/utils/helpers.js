@@ -29,7 +29,6 @@ const transformDataForHeaderRow = (data) => {
         data.forEach(entry => {
             row[entry.Name] = entry[header]; // Populate the new columns with data
         });
-        console.log({row})
         return row;
     });
 

@@ -9,7 +9,7 @@ import { AgGridReact } from 'ag-grid-react';
 function BikesData({ bikes, setBikesData }) {
     // Define columns for AG Grid
     const columns = [
-      { headerName: 'Name', field: 'Name' },
+      { headerName: 'Model Name', field: 'Model Name' },
       { headerName: 'Ex-Showroom Price', field: 'Ex-Showroom price' },
       { headerName: 'RTO', field: 'RTO' },
       { headerName: 'Insurance', field: 'Insurance' },
